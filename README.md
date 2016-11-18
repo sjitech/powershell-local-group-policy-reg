@@ -1,8 +1,8 @@
 # IGroupPolicyObject2
 Load group policy's registry hive to a temporary registry key path, then you can edit it by normal external command.
 
-When you use Group Policy on Windows 7/10, not in a AD server, then you can not be benifit 
-from the Powershell's Group Policy Module which only works on AD's group policy.
+When you use Group Policy on Windows 7/10, not in a AD server, you can not use
+Powershell's Group Policy Module due to it only works on AD's group policy environment.
 
 How can i edit the Group Policy's registry hive on local machine?
 
