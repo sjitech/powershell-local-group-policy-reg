@@ -8,8 +8,7 @@ How can i edit the Group Policy's registry hive on local machine?
 
 Here is the way:
 
-
-- Use the IGroupPolicyObject2 to load registry hive and Get its mapped registry key path
+### Use the IGroupPolicyObject2 to load registry hive and Get its mapped registry key path
 
 With PowerShell, you can import C# source to get a GroupPolicy.Reg class as defined in [IGroupPolicyObject2.cs](IGroupPolicyObject2.cs).
 ```
@@ -31,7 +30,7 @@ Software\Microsoft\Windows\CurrentVersion\Group Policy Objects\{722642C1-7DCB-47
 ```
 Both are relative to HKEY_CURRENT_USER, you can see it in regedit tool.
 
-- Then you are free to use any command or external tool, such as
+### Then you are free to use any command or external tool
   - regedit.exe or reg.exe, then goto the location printed above, then edit it.
   - Powershell's cd and New-Item or New-ItemProperty ... cmdlets
 
@@ -41,17 +40,17 @@ cd HKCU:\"$([GroupPolicy.Reg]::userRegPath)"
 #Use New-Item or Set-Item or Set-ItemProperty ...  to manupilate registry
 ```
 
-- Call GroupPolicy.Reg.Save() to save to registry hive.
+### Call GroupPolicy.Reg.Save() to save to registry hive.
 ```
 [GroupPolicy.Reg]::Save()
 ```
 
-- If you'v finished all work, then you should call Unload to unmap the registry hive.
+### If you'v finished all work, then you should call Unload to unmap the registry hive.
 ```
 [GroupPolicy.Reg]::Hive()
 ```
 
-- And do not forget to use gpupdate to apply group policy immdiately
+### And do not forget to use gpupdate to apply group policy immdiately
 ```
 gpupdate
 ```
