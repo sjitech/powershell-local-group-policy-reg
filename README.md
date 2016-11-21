@@ -1,4 +1,4 @@
-# IGroupPolicyObject2
+# powershell-local-group-policy-reg
 Load group policy's registry hive to a temporary registry key path, then you can edit it by normal external command.
 
 When you use Group Policy on Windows 7/10, not in a AD server, you can not use
@@ -10,37 +10,45 @@ Here is the way:
 
 
 - Use the IGroupPolicyObject2 to load registry hive and Get its mapped registry key path
-This is done automatically, you use call GroupPolicy.Reg.userRegPath or machineRegPath to get the reg path.
 
-Use PowerShell, you do not need the DLL, just import C# source is OK.
+With PowerShell, you can import C# source to get a GroupPolicy.Reg class as defined in [IGroupPolicyObject2.cs](IGroupPolicyObject2.cs).
 ```
-Add-Type -Path thePathOfIGroupPolicyObject2.cs
+Add-Type -Path IGroupPolicyObject2.cs
 ```
-Then you can see type `GroupPolicy.Reg` which have two static var.
+Then you load registry hive of local group policy:
+```
+[GroupPolicy.Reg]::Load()
+```
+Then you can see where the registry hive is mapped into your real registry.
 ```
 [GroupPolicy.Reg]::userRegPath
 [GroupPolicy.Reg]::machineRegPath
 ```
-Sample output
+Sample output:
 ```
 Software\Microsoft\Windows\CurrentVersion\Group Policy Objects\{722642C1-7DCB-475B-96EA-16BB4B899EA7}User
 Software\Microsoft\Windows\CurrentVersion\Group Policy Objects\{722642C1-7DCB-475B-96EA-16BB4B899EA7}Machine
 ```
-Both are relative to HKEY_CURRENT_USER.
+Both are relative to HKEY_CURRENT_USER, you can see it in regedit tool.
 
 - Then you are free to use any command or external tool, such as
   - regedit.exe or reg.exe, then goto the location printed above, then edit it.
-  - Powershell's cd and New-Item or New-ItemProperty cmdlets
+  - Powershell's cd and New-Item or New-ItemProperty ... cmdlets
 
 Powershell:
 ```
 cd HKCU:\"$([GroupPolicy.Reg]::userRegPath)"
-Use New-Item or Set-Item or Set-ItemProperty ...  to manupilate registry
+#Use New-Item or Set-Item or Set-ItemProperty ...  to manupilate registry
 ```
 
-- Finally, you call GroupPolicy.Reg.Save() to save to registry hive.
+- Call GroupPolicy.Reg.Save() to save to registry hive.
 ```
 [GroupPolicy.Reg]::Save()
+```
+
+- If you'v finished all work, then you should call Unload to unmap the registry hive.
+```
+[GroupPolicy.Reg]::Hive()
 ```
 
 - And do not forget to use gpupdate to apply group policy immdiately
