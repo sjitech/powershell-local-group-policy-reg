@@ -26,6 +26,8 @@ Sample output
 Software\Microsoft\Windows\CurrentVersion\Group Policy Objects\{722642C1-7DCB-475B-96EA-16BB4B899EA7}User
 Software\Microsoft\Windows\CurrentVersion\Group Policy Objects\{722642C1-7DCB-475B-96EA-16BB4B899EA7}Machine
 ```
+Both are relative to HKEY_CURRENT_USER.
+
 - Then you are free to use any command or external tool, such as
   - regedit.exe or reg.exe, then goto the location printed above, then edit it.
   - Powershell's cd and New-Item or New-ItemProperty cmdlets
