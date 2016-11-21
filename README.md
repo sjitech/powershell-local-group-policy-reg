@@ -35,7 +35,7 @@ Both are relative to HKEY_CURRENT_USER.
 Powershell:
 ```
 cd HKCU:\"$([GroupPolicy.Reg]::userRegPath)"
-Use Add-Item or Set-Item or Set-ItemProperty ...  to manupilate registry
+Use New-Item or Set-Item or Set-ItemProperty ...  to manupilate registry
 ```
 
 Good luck.
