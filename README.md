@@ -14,7 +14,7 @@ This is done automatically, you use call GroupPolicy.Reg.userRegPath or machineR
 
 Use PowerShell, you do not need the DLL, just import C# source is OK.
 ```
-Add-Type -File thePathOfIGroupPolicyObject2.cs
+Add-Type -Path thePathOfIGroupPolicyObject2.cs
 ```
 Then you can see type `GroupPolicy.Reg` which have two static var.
 ```
