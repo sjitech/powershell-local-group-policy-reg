@@ -8,7 +8,7 @@ namespace ConsoleApplication1
     {
         static Guid myGuid = Guid.NewGuid();
 
-        static void Main(string[] args)
+        static void Main2(string[] args)
         {
             IGroupPolicyObject2 gpo = (IGroupPolicyObject2)new GroupPolicyClass();
             try
@@ -24,6 +24,24 @@ namespace ConsoleApplication1
 
                 gpo.Save(/*machine part:*/false, /*extension add:*/true, GroupPolicyExtensionGuids.Registry, myGuid);
 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            IGroupPolicyObject2 gpo = (IGroupPolicyObject2)new GroupPolicyClass();
+            try
+            {
+                Console.WriteLine("MACHINE REG:" + GroupPolicy.Reg.machineRegPath);
+                Console.WriteLine("USER REG:" + GroupPolicy.Reg.userRegPath);
+
+                //do your work here, change the registry 
+
+                GroupPolicy.Reg.Save();
             }
             catch (Exception e)
             {

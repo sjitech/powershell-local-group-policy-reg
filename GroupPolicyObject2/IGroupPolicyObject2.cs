@@ -4,6 +4,33 @@ using System.Runtime.InteropServices;
 
 namespace GroupPolicy
 {
+    public class Reg
+    {
+        static IGroupPolicyObject2 gpo;
+        static Reg()
+        {
+            gpo = (IGroupPolicyObject2)new GroupPolicyClass();
+            gpo.OpenLocalMachineGPO(GroupPolicyFlags.LoadRegistryInformation);
+
+            StringBuilder rootRegPath = new StringBuilder(1024);
+            gpo.GetRegistryKeyPath(GroupPolicySection.Machine, rootRegPath, rootRegPath.Capacity);
+            machineRegPath = rootRegPath.ToString();
+
+            gpo.GetRegistryKeyPath(GroupPolicySection.User, rootRegPath, rootRegPath.Capacity);
+            userRegPath = rootRegPath.ToString();
+        }
+
+        public static string machineRegPath;
+        public static string userRegPath;
+
+        static Guid myGuid = Guid.NewGuid();
+
+        public static void Save()
+        {
+            gpo.Save(/*machine part:*/false, /*extension add:*/true, GroupPolicyExtensionGuids.Registry, myGuid);
+        }
+    }
+
     [ComImport, Guid("EA502722-A23D-11d1-A7D3-0000F87571E3")]
     public class GroupPolicyClass
     {
