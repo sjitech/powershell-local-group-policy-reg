@@ -55,4 +55,31 @@ cd HKCU:\"$([GroupPolicy.Reg]::userRegPath)"
 gpupdate
 ```
 
+
+### Sample powershell script:
+```
+Add-Type -Path c:\files\IGroupPolicyObject2.cs
+
+[GroupPolicy.Reg]::Load()
+
+cd HKCU:\"$([GroupPolicy.Reg]::userRegPath)"
+
+New-Item .\Software\Microsoft\Windows\CurrentVersion\Policies\System\_ -Force
+Remove-Item .\Software\Microsoft\Windows\CurrentVersion\Policies\System\_
+
+Set-ItemProperty -Path .\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name Wallpaper -Value C:\files\WiFiConnected.png
+Set-ItemProperty -Path .\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name WallpaperStyle -Type DWORD -Value 2
+
+Remove-ItemProperty -Path .\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name **del.Wallpaper
+Remove-ItemProperty -Path .\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name **del.WallpaperStyle
+
+[GroupPolicy.Reg]::Save()
+[GroupPolicy.Reg]::Unload()
+
+gpupdate
+```
+
 Good luck.
+
+
+
