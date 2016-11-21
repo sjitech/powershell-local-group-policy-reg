@@ -12,7 +12,11 @@ Here is the way:
 - Use the IGroupPolicyObject2 to load registry hive and Get its mapped registry key path
 This is done automatically, you use call GroupPolicy.Reg.userRegPath or machineRegPath to get the reg path.
 
-Use PowerShell: 
+Use PowerShell, you do not need the DLL, just import C# source is OK.
+```
+Add-Type -File thePathOfIGroupPolicyObject2.cs
+```
+Then you can see type `GroupPolicy.Reg` which have two static var.
 ```
 [GroupPolicy.Reg]::userRegPath
 [GroupPolicy.Reg]::machineRegPath
