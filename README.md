@@ -38,4 +38,14 @@ cd HKCU:\"$([GroupPolicy.Reg]::userRegPath)"
 Use New-Item or Set-Item or Set-ItemProperty ...  to manupilate registry
 ```
 
+- Finally, you call GroupPolicy.Reg.Save() to save to registry hive.
+```
+[GroupPolicy.Reg]::Save()
+```
+
+- And do not forget to use gpupdate to apply group policy immdiately
+```
+gpupdate
+```
+
 Good luck.
